@@ -1,0 +1,2 @@
+1) Laravel Role Permission:
+https://github.com/spatie/laravel-permission
