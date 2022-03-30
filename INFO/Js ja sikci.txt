@@ -1,2 +1,13 @@
 1) Laravel Role Permission:
 https://github.com/spatie/laravel-permission
+
+
+
+############################ Project Work flow #######################
+1) fresh laravel 7 instll 
+
+2)  laravel Role permission package istall and configure
+
+3) seeder create for RolePermissionSeder and UserSeeder
+
+4)admin plate setup into the project
