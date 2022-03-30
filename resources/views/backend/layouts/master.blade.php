@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @include("backend.layouts.partials.style")
+
+    @stack('css')
     <!-- modernizr css -->
     <script src="{{ asset('backend/assets/js/vendor/modernizr-2.8.3.min.js') }}"></script>
 </head>
@@ -49,6 +51,8 @@
     <!-- offset area end -->
     <!-- jquery latest version -->
     @include("backend.layouts.partials.scripts")
+
+    @stack('js')
 </body>
 
 </html>
