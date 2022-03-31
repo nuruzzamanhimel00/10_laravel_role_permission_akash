@@ -22,27 +22,43 @@ class RolePermissionSeeder extends Seeder
         //permission array
 
         $permissions = [
-            'blog.view',
-            'blog.edit',
-            'blog.update',
-            'blog.delete',
-            'blog.approve',
-
-            'admin.view',
-            'admin.edit',
-            'admin.update',
-            'admin.delete',
-            'admin.approve',
-
-            'role.view',
-            'role.edit',
-            'role.update',
-            'role.delete',
-            'role.approve',
-
-            'profile.view',
-            'profile.edit'
-
+            [
+                'group_name' => 'blog',
+                'permissions' => [
+                    'blog.view',
+                    'blog.edit',
+                    'blog.update',
+                    'blog.delete',
+                    'blog.approve',
+                ]
+            ],
+            [
+                'group_name' => 'admin',
+                'permissions' => [
+                    'admin.view',
+                    'admin.edit',
+                    'admin.update',
+                    'admin.delete',
+                    'admin.approve',
+                ]
+            ],
+            [
+                'group_name' => 'role',
+                'permissions' => [
+                    'role.view',
+                    'role.edit',
+                    'role.update',
+                    'role.delete',
+                    'role.approve',
+                ]
+            ],
+            [
+                'group_name' => 'profile',
+                'permissions' => [
+                    'profile.view',
+                    'profile.edit'
+                ]
+            ],
         ];
 
         //only permission create
@@ -50,8 +66,12 @@ class RolePermissionSeeder extends Seeder
 
           //permission create with role
         foreach($permissions as $permission){
-            $permissionCreate = Permission::create(['name' => $permission]);
-            $superAdmin->givePermissionTo($permissionCreate);
+
+            foreach($permission['permissions'] as $pr){
+                $permissionCreate = Permission::create(['name' => $pr,'group_name'=>$permission['group_name']]);
+                $superAdmin->givePermissionTo($permissionCreate);
+            }
+
         }
 
 
