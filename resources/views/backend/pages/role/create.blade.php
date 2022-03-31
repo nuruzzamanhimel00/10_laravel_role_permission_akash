@@ -45,6 +45,13 @@ Roles | Role Permission Laravel
                                 </div>
                                 <div class="form-group">
                                   <label for="name">Permissions</label>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="permissionAll" value="">
+                                        <label class="form-check-label" for="permissionAll">All</label>
+                                    </div>
+
+                                    <hr>
+
                                   @forelse ($permissions as $permission )
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->id }}">
@@ -72,6 +79,21 @@ Roles | Role Permission Laravel
 
 @push('js')
 
+<script>
+    $(document).on('change','#permissionAll',function(e){
+        e.preventDefault();
+        if($(this).prop('checked')){
+            //is checked
+            $('input[type=checkbox]').prop('checked',true);
+            // console.log('checked');
+        }else{
+            //uncheck
+            $('input[type=checkbox]').prop('checked',false);
+            // console.log('uncheck');
+        }
 
+        // console.log('change');
+    });
+</script>
 
 @endpush
