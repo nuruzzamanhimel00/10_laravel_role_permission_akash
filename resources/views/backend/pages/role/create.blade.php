@@ -51,15 +51,39 @@ Roles | Role Permission Laravel
                                     </div>
 
                                     <hr>
+                                    @forelse ($permission_groups as $permission_group )
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input perGrpName" data-gname="{{ $permission_group->name }}_checkbox" id="permission_{{ $permission_group->name }}" >
+                                                    <label class="form-check-label" for="permission_{{ $permission_group->name }}">{{ $permission_group->name }}</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                {{-- @php
+                                                    dd($permissions->where('group_name',$permission_group->name))
+                                                @endphp --}}
+                                                @forelse ($permissions->where('group_name',$permission_group->name) as $permission )
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input {{ $permission_group->name.'_checkbox' }}" name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->id }}">
+                                                    <label class="form-check-label" for="permission{{ $permission->id }}">{{ $permission->name }}</label>
+                                                </div>
+                                              @empty
+                                              @endforelse
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    @empty
+                                    @endforelse
 
-                                  @forelse ($permissions as $permission )
+                                  {{-- @forelse ($permissions as $permission )
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->id }}">
                                         <label class="form-check-label" for="permission{{ $permission->id }}">{{ $permission->name }}</label>
                                     </div>
                                   @empty
                                   <h2 class="text-danger">Permission Create FIrst</h2>
-                                  @endforelse
+                                  @endforelse --}}
 
                                 </div>
 
@@ -93,6 +117,21 @@ Roles | Role Permission Laravel
         }
 
         // console.log('change');
+    });
+
+    //single group wise  permission check
+    $(document).on('change','.perGrpName',function(e){
+        e.preventDefault();
+        let target = $(this);
+        let perGrpName = target.data('gname');
+        var grpAllParTar = $("."+perGrpName);
+        if(target.prop('checked')){
+
+            grpAllParTar.prop('checked',true);
+        }else{
+            grpAllParTar.prop('checked',false);
+        }
+        console.log(perGrpName);
     });
 </script>
 
