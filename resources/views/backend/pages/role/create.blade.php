@@ -65,7 +65,12 @@ Roles | Role Permission Laravel
                                                 @endphp --}}
                                                 @forelse ($permissions->where('group_name',$permission_group->name) as $permission )
                                                 <div class="form-check">
-                                                    <input type="checkbox" class="form-check-input {{ $permission_group->name.'_checkbox' }}" name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->id }}">
+                                                    <input type="checkbox" class="form-check-input singPerName {{ $permission_group->name.'_checkbox' }}"
+                                                    {{-- data-gname="{{ $permission_group->name }}_checkbox"  --}}
+                                                    data-gname="{{ $permission_group->name }}_checkbox"
+                                                    data-pargnameid="permission_{{ $permission_group->name }}"
+
+                                                    name="permissions[]" id="permission{{ $permission->id }}" value="{{ $permission->id }}">
                                                     <label class="form-check-label" for="permission{{ $permission->id }}">{{ $permission->name }}</label>
                                                 </div>
                                               @empty
@@ -131,7 +136,34 @@ Roles | Role Permission Laravel
         }else{
             grpAllParTar.prop('checked',false);
         }
-        console.log(perGrpName);
+        // console.log(perGrpName);
+    });
+    // single permision change
+    $(document).on('change','.singPerName',function(e){
+        e.preventDefault();
+        var target = $(this);
+        let gname = target.data('gname');
+        let pargnameid = target.data('pargnameid');
+        var parCheckAry = [];
+        $('.'+gname).each(function(){
+            if(!$(this).prop('checked')){
+                // $("#"+pargnameid).prop('checked',false);
+                parCheckAry.push(0);
+            }else{
+                // $("#"+pargnameid).prop('checked',true);
+                parCheckAry.push(1);
+            }
+            console.log(gname);
+        });
+
+        if($.inArray(0,parCheckAry) != -1){
+            $("#"+pargnameid).prop('checked',false);
+        }else{
+            $("#"+pargnameid).prop('checked',true);
+        }
+
+        // console.log(parCheckAry);
+
     });
 </script>
 
