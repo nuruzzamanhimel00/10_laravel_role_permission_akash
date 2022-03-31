@@ -136,6 +136,8 @@ Roles | Role Permission Laravel
         }else{
             grpAllParTar.prop('checked',false);
         }
+         // all single parmission wise all checkbox manage
+         allParmissionChekboxChecked();
         // console.log(perGrpName);
     });
     // single permision change
@@ -145,6 +147,7 @@ Roles | Role Permission Laravel
         let gname = target.data('gname');
         let pargnameid = target.data('pargnameid');
         var parCheckAry = [];
+        // single parmission wise group manage
         $('.'+gname).each(function(){
             if(!$(this).prop('checked')){
                 // $("#"+pargnameid).prop('checked',false);
@@ -155,16 +158,37 @@ Roles | Role Permission Laravel
             }
             console.log(gname);
         });
-
         if($.inArray(0,parCheckAry) != -1){
             $("#"+pargnameid).prop('checked',false);
         }else{
             $("#"+pargnameid).prop('checked',true);
         }
+        // all single parmission wise all checkbox manage
+        allParmissionChekboxChecked();
 
         // console.log(parCheckAry);
 
     });
+
+    function allParmissionChekboxChecked(){
+    // all single parmission wise all checkbox manage
+    var allSltArray = [];
+            // all select check
+            $('.singPerName').each(function(){
+                if(!$(this).prop('checked')){
+                    allSltArray.push(0);
+                }else{
+                    allSltArray.push(1);
+                }
+            });
+
+            if($.inArray(0,allSltArray) != -1){
+                $('#permissionAll').prop('checked',false);
+            }else{
+                $('#permissionAll').prop('checked',true);
+            }
+
+    }
 </script>
 
 @endpush
