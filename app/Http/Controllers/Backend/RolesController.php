@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -98,7 +99,24 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all() , $id);
+          //validaton create
+        $request->validate([
+            'name' => 'required|unique:roles,name,'.$request->id
+        ]);
+
+       //role permission process start
+       $permissions = $request->input('permissions');
+        // find
+        $role = Role::findById($request->id);
+
+        // role wise multiple parmission update
+       if($role &&  $role->update(['name' => $request->name])){
+           if(isset($permissions)){
+               $role->syncPermissions($permissions);
+           }
+           return redirect()->route('roles.index');
+       }
     }
 
     /**

@@ -38,9 +38,11 @@ Roles Edit | Role Permission Laravel
                         <div class="data-tables">
                             <form action="{{ route('roles.update',['role'=>$role->id]) }}" method="POST">
                                 @csrf
+                                @method('PUT')
+                                <input type="hidden" name="id" value="{{ $role->id }}">
                                 <div class="form-group">
                                   <label for="name">Name</label>
-                                  <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                                  <input type="text" class="form-control" id="name" name="name" value="{{ $role->name }}" placeholder="Enter name">
 
                                 </div>
                                 <div class="form-group">
