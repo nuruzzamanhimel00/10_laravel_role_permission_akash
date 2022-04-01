@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="{{ asset('backend/assets/css/responsive.css') }}">
 @endpush
 @section('title')
-Roles | Role Permission Laravel
+Users | Users Permission Laravel
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@ Roles | Role Permission Laravel
                 <h4 class="page-title pull-left">Dashboard</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                    <li><span>Roles</span></li>
+                    <li><span>Users</span></li>
                 </ul>
             </div>
         </div>
@@ -49,31 +49,33 @@ Roles | Role Permission Laravel
                                     <tr>
                                         <th>id</th>
                                         <th>name</th>
-                                        <th width="30%">Permissions</th>
+                                        <th>email</th>
+                                        {{-- <th width="30%">Permissions</th> --}}
                                         <th>action</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($roles as $role )
+                                    @forelse ($users as $user )
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $role->name }}</td>
-                                            <td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            {{-- <td>
                                                 @forelse ($role->permissions as $permission)
                                                     <span class="badge badge-success" style="font-size: 14px;">
                                                         {{ $permission->name }}
                                                     </span>
                                                 @empty
                                                 @endforelse
-                                            </td>
+                                            </td> --}}
                                             <td>
-                                                <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
+                                                <a href="{{ route('users.edit',['user'=>$user->id]) }}" class="btn btn-success btn-sm">Edit</a>
                                                 <a href="" class="btn btn-danger btn-sm"
                                                 onclick="event.preventDefault();
-                                                document.getElementById('role_logout_form_{{ $role->id }}').submit();
+                                                document.getElementById('user_logout_form_{{ $user->id }}').submit();
                                                 " >Delete</a>
-                                                <form action="{{ route('roles.destroy',['role'=>$role->id]) }}" id="role_logout_form_{{ $role->id }}" method="POST">
+                                                <form action="{{ route('users.destroy',['user'=>$user->id]) }}" id="user_logout_form_{{ $user->id }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>

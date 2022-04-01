@@ -59,7 +59,8 @@ class RolesController extends Controller
             if(isset($permissions)){
                 $roleCreate->syncPermissions($permissions);
             }
-            return redirect()->route('roles.index');
+            return redirect()->back()->with(['success' => 'Role Created Successfully']);
+            // return redirect()->route('roles.index');
         }
     }
 
@@ -129,7 +130,7 @@ class RolesController extends Controller
     {
         $role = Role::findById($id);
         if($role->delete()){
-           return redirect()->back();
+           return redirect()->back()->with(['success' => 'Deleted Successfully']);
         }
         // return $id;
     }
