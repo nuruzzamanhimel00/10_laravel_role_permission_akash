@@ -33,7 +33,7 @@ class RolesController extends Controller
         $permission_groups = User::getPermissionGroups();
         // return $permission_groups;
         return view("backend.pages.role.create",compact('permissions','permission_groups'));
-        return $permissions;
+
     }
 
     /**
@@ -81,7 +81,12 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $role = Role::findById($id);
+        $permissions = Permission::latest()->get();
+        $permission_groups = User::getPermissionGroups();
+        // return $permission_groups;
+        return view("backend.pages.role.edit",compact('permissions','permission_groups','role'));
     }
 
     /**

@@ -46,4 +46,19 @@ class User extends Authenticatable
         return $getpermission_group;
     }
 
+    public static function roleWiseSelectPermSrc($role_id,$permissions){
+        $roleWisePermison =  DB::table('role_has_permissions')
+                        ->where('role_id',$role_id)
+                        ->whereIn('permission_id',$permissions)
+                        ->pluck('permission_id')->toArray();
+        return $roleWisePermison;
+    }
+
+    public static function roleWiseAllParm($role_id){
+        $roleWiseAllParm =  DB::table('role_has_permissions')
+                        ->where('role_id',$role_id)
+                        ->get();
+        return $roleWiseAllParm;
+    }
+
 }

@@ -58,7 +58,10 @@ Roles | Role Permission Laravel
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $role->name }}</td>
-                                            <td>Tokyo</td>
+                                            <td>
+                                                <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
+                                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
 
                                         </tr>
                                     @empty

@@ -14,7 +14,7 @@
                 <li>
                     <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Roles</span></a>
                     <ul class="collapse">
-                        <li><a href="{{ route('roles.index') }}l">Roles List</a></li>
+                        <li><a href="{{ route('roles.index') }}">Roles List</a></li>
                         <li><a href="{{ route('roles.create') }}">Role Create</a></li>
                         {{-- <li><a href="login3.html">Login 3</a></li> --}}
                     </ul>
