@@ -69,7 +69,14 @@ Roles | Role Permission Laravel
                                             </td>
                                             <td>
                                                 <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
-                                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="" class="btn btn-danger btn-sm"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('role_logout_form_{{ $role->id }}').submit();
+                                                " >Delete</a>
+                                                <form action="{{ route('roles.destroy',['role'=>$role->id]) }}" id="role_logout_form_{{ $role->id }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
                                             </td>
 
                                         </tr>
