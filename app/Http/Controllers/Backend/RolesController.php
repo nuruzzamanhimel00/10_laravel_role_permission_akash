@@ -19,7 +19,7 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::with(['permissions'])->get();
         return view('backend.pages.role.index',compact('roles'));
     }
 

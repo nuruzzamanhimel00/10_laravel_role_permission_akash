@@ -49,6 +49,7 @@ Roles | Role Permission Laravel
                                     <tr>
                                         <th>id</th>
                                         <th>name</th>
+                                        <th width="30%">Permissions</th>
                                         <th>action</th>
 
                                     </tr>
@@ -58,6 +59,14 @@ Roles | Role Permission Laravel
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $role->name }}</td>
+                                            <td>
+                                                @forelse ($role->permissions as $permission)
+                                                    <span class="badge badge-success" style="font-size: 14px;">
+                                                        {{ $permission->name }}
+                                                    </span>
+                                                @empty
+                                                @endforelse
+                                            </td>
                                             <td>
                                                 <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
                                                 <a href="" class="btn btn-danger btn-sm">Delete</a>
