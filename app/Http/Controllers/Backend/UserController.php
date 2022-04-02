@@ -118,9 +118,10 @@ class UserController extends Controller
         if($user->save()){
             if(isset($request->roles)){
                 //remove user roles
-                foreach($request->roles as $role){
-                     $user->removeRole($role);
+                foreach(Role::all() as $role){
+                     $user->removeRole($role->name);
                 }
+                // $user->removeRole(Role::all());
                 // assign user roles
                 $user->assignRole($request->roles);
             }
@@ -136,6 +137,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+         //remove user roles
+        foreach($user->getRoleNames()as $role_name){
+            $user->removeRole($role_name);
+        }
+        if($user->delete()){
+            return redirect()->back()->with(['success' => 'User Deleted Successfully']);
+        }
+
     }
 }
