@@ -53,10 +53,6 @@ User Create | Role Permission Laravel
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password-confirm">Confirm Password</label>
-                                    <input type="password" class="form-control" id="password-confirm " name="password_confirmation" placeholder="Enter Confirm Password" autocomplete="new-password">
-                                </div>
-                                <div class="form-group">
                                     <label for="sltRole">Roles</label>
                                     <select multiple class="form-control" id="sltRole" name="roles[]" value="{{ old('roles') }}">
                                         @forelse ($roles as $role )

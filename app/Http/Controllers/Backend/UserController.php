@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -46,7 +47,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:users|string',
-            'password' => 'required|string|confirmed|min:4',
+            'password' => 'required|min:6',
             'roles' => 'required'
         ]);
 
@@ -56,6 +57,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
         if($user){
+            // if have assign role
             if(count($request->roles) > 0){
                 $user->assignRole($request->roles);
             }
@@ -63,7 +65,7 @@ class UserController extends Controller
             return redirect()->back()->with(['success' => 'User Created Successfully']);
         }
 
-        return $request->all();
+        // return $request->all();
 
 
     }
@@ -76,7 +78,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -87,7 +89,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $roles = Role::all();
+        return view("backend.pages.user.edit",compact('roles','user'));
     }
 
     /**
@@ -99,7 +103,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email,'.$id,
+            // 'password' => 'required|min:4',
+        ]);
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if(isset($request->password)){
+            $user->password  = Hash::make($request->password);
+        }
+        if($user->save()){
+            if(isset($request->roles)){
+                //remove user roles
+                foreach($request->roles as $role){
+                     $user->removeRole($role);
+                }
+                // assign user roles
+                $user->assignRole($request->roles);
+            }
+            return redirect()->back()->with(['success' => 'User Update Successfully']);
+        }
     }
 
     /**
