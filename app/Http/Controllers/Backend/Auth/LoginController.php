@@ -66,7 +66,7 @@ class LoginController extends Controller
     public function logout(){
         $this->guard()->logout();
         Session::flush();
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('success','Logout Successfully');
     }
 
     protected function attemptedLogin($request){

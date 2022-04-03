@@ -14,10 +14,11 @@ login - Admin Panel
                     <h4>Sign In</h4>
 
                 </div>
+                @include("backend.layouts.partials.notify")
                 <div class="login-form-body">
                     <div class="form-gp">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" id="exampleInputEmail1" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus >
+                        <input type="email" id="exampleInputEmail1" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus >
                         <i class="ti-email"></i>
                         <div class="text-danger"></div>
                         @error('email')
@@ -29,7 +30,7 @@ login - Admin Panel
                     </div>
                     <div class="form-gp">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" id="exampleInputPassword1" class="@error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <input type="password" id="exampleInputPassword1" class="@error('password') is-invalid @enderror" name="password"  autocomplete="current-password">
                         <i class="ti-lock"></i>
                         <div class="text-danger"></div>
                         @error('password')

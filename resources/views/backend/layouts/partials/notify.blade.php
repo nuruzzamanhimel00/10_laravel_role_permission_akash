@@ -16,3 +16,11 @@
     </div>
 </div>
 @endif
+
+@if(\Session::has('error'))
+<div class="alert alert-success">
+    <div>
+       {{ \Session::get('error') }}
+    </div>
+</div>
+@endif
