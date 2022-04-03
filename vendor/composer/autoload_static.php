@@ -489,6 +489,7 @@ class ComposerStaticInit408fabf94ab28ecfcfb5760266daad9f
     );
 
     public static $classMap = array (
+        'App\\Admin' => __DIR__ . '/../..' . '/app/Admin.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -497,6 +498,16 @@ class ComposerStaticInit408fabf94ab28ecfcfb5760266daad9f
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\Backend\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/AdminController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/ConfirmPasswordController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/ForgotPasswordController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/LoginController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/RegisterController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Backend\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\Backend\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/DashboardController.php',
+        'App\\Http\\Controllers\\Backend\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/RolesController.php',
+        'App\\Http\\Controllers\\Backend\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Backend/UserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

@@ -11,3 +11,19 @@ https://github.com/spatie/laravel-permission
 3) seeder create for RolePermissionSeder and UserSeeder
 
 4)admin plate setup into the project
+
+
+
+############ tutorail - 8 (  multi guard auth ) ##############
+
+1) admin r user Auth controller alada korci App\HTTp\controllers\Backend\AUth
+
+2) config\Auth.php te guita dard alada kore dici
+
+3) admin er jnn Admin.php hubahu User.php moto kore banai cici
+
+4) middleware: Authonticate.php te kaj koreci
+
+5) admin/LoginController.php te kaj kora lagce
+
+6) login page design korci...
