@@ -51,10 +51,8 @@ class LoginController extends Controller
         //validate login
         $this->validateLogin($request);
 
-        $credentials = $request->only($this->username(),'password');
-
         //attempt login
-        if( Auth::guard('admin')->attempt($credentials, $request->remember) ){
+        if($this->attemptedLogin($request) ){
             session()->flash('success','login successfully');
             return redirect()->intended(route('admin.dashboard'));
         }else{
@@ -64,6 +62,10 @@ class LoginController extends Controller
 
     }
 
+    protected function attemptedLogin($request){
+        $credentials = $request->only($this->username(),'password');
+        return $this->guard()->attempt($credentials, $request->remember) ;
+    }
     public function username(){
         return 'email';
     }
@@ -73,6 +75,10 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string'
         ]);
+    }
+
+    protected function guard(){
+        return Auth::guard('admin');
     }
 
 }
