@@ -4,6 +4,13 @@
     <div class="dropdown-menu">
         <a class="dropdown-item" href="#">Message</a>
         <a class="dropdown-item" href="#">Settings</a>
-        <a class="dropdown-item" href="#">Log Out</a>
+        <a class="dropdown-item" href="r{{ route('admin.logout.submit') }}"
+        onclick="event.preventDefault();
+        document.getElementById('admin_logout').submit();
+        "
+        >Log Out</a>
+        <form action="{{ route('admin.logout.submit') }}" method="POST" id="admin_logout">
+            @csrf
+        </form>
     </div>
 </div>

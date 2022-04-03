@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -60,6 +61,12 @@ class LoginController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function logout(){
+        $this->guard()->logout();
+        Session::flush();
+        return redirect()->route('admin.login');
     }
 
     protected function attemptedLogin($request){
