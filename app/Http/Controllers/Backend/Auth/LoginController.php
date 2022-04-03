@@ -70,16 +70,33 @@ class LoginController extends Controller
     }
 
     protected function attemptedLogin($request){
-        $credentials = $request->only($this->username(),'password');
+        $credentials = $this->usernameEmailLogin($request);
+        // dd($credentials);
         return $this->guard()->attempt($credentials, $request->remember) ;
     }
+    protected function usernameEmailLogin($request){
+        if(filter_var($request->username,FILTER_VALIDATE_EMAIL)){
+            $request[$this->email()] = $request->username;
+            unset($request[$this->username()]);
+        }
+        if(isset($request[$this->email()])){
+            $credentials = $request->only($this->email(),'password');
+        }else{
+            $credentials = $request->only($this->username(),'password');
+        }
+        return $credentials;
+    }
     public function username(){
+        return 'username';
+    }
+    public function email(){
         return 'email';
     }
 
     public function validateLogin($request){
+        // dd(filter_var($request->name,FILTER_VALIDATE_EMAIL) ? $this->email() : $this->username());
         $request->validate([
-            $this->username() => 'required|string',
+            filter_var($request->name,FILTER_VALIDATE_EMAIL) ? $this->email() : $this->username()   => 'required|string',
             'password' => 'required|string'
         ]);
     }

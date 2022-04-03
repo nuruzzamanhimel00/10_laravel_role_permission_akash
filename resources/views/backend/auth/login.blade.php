@@ -18,10 +18,10 @@ login - Admin Panel
                 <div class="login-form-body">
                     <div class="form-gp">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" id="exampleInputEmail1" class="@error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus >
+                        <input type="text" id="exampleInputEmail1" class="@error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus >
                         <i class="ti-email"></i>
                         <div class="text-danger"></div>
-                        @error('email')
+                        @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
