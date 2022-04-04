@@ -35,6 +35,11 @@ Roles | Role Permission Laravel
     </div>
 </div>
 <!-- page title area end -->
+@inject('AdminModal','App\Admin' )
+@php
+    $user = $AdminModal::adminGuard()->user();
+@endphp
+
 <div class="main-content-inner">
     <div class="main-content-inner">
         <div class="row">
@@ -68,15 +73,20 @@ Roles | Role Permission Laravel
                                                 @endforelse
                                             </td>
                                             <td>
-                                                <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
-                                                <a href="" class="btn btn-danger btn-sm"
-                                                onclick="event.preventDefault();
-                                                document.getElementById('role_logout_form_{{ $role->id }}').submit();
-                                                " >Delete</a>
-                                                <form action="{{ route('roles.destroy',['role'=>$role->id]) }}" id="role_logout_form_{{ $role->id }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                @if ($user->can( 'role.edit'))
+                                                 <a href="{{ route('roles.edit',['role'=>$role->id]) }}" class="btn btn-success btn-sm">Edit</a>
+                                                @endif
+                                                @if ($user->can('role.delete'))
+                                                    <a href="" class="btn btn-danger btn-sm"
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('role_logout_form_{{ $role->id }}').submit();
+                                                    " >Delete</a>
+                                                    <form action="{{ route('roles.destroy',['role'=>$role->id]) }}" id="role_logout_form_{{ $role->id }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                @endif
+
                                             </td>
 
                                         </tr>

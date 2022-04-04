@@ -35,6 +35,11 @@ Admins | Admins Permission Laravel
     </div>
 </div>
 <!-- page title area end -->
+@inject('AdminModal','App\Admin' )
+@php
+    $user = $AdminModal::adminGuard()->user();
+@endphp
+
 <div class="main-content-inner">
     <div class="main-content-inner">
         <div class="row">
@@ -70,7 +75,10 @@ Admins | Admins Permission Laravel
                                                 @endforelse
                                             </td>
                                             <td>
+                                                @if ($user->can( 'admin.edit'))
                                                 <a href="{{ route('admins.edit',['admin'=>$admin->id]) }}" class="btn btn-success btn-sm">Edit</a>
+                                                @endif
+                                                @if ($user->can( 'admin.delete'))
                                                 <a href="" class="btn btn-danger btn-sm"
                                                 onclick="event.preventDefault();
                                                 document.getElementById('admin_logout_form_{{ $admin->id }}').submit();
@@ -79,6 +87,9 @@ Admins | Admins Permission Laravel
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
+                                                @endif
+
+
                                             </td>
 
                                         </tr>

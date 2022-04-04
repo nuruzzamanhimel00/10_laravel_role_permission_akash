@@ -174,7 +174,7 @@ class RolesController extends Controller
         return Role::findById($id,$guard);
     }
 
-    protected function guard(){
+    public function guard(){
         return Auth::guard('admin');
     }
 }
