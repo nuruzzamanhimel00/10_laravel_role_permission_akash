@@ -53,7 +53,7 @@ class RolesController extends Controller
         //role permission process start
         $permissions = $request->input('permissions');
 
-        $roleCreate = Role::create(['name'=>$request->name]);
+        $roleCreate = Role::create(['name'=>$request->name,'guard_name'=>'admin']);
 
         if($roleCreate){
             if(isset($permissions)){
@@ -84,12 +84,14 @@ class RolesController extends Controller
     public function edit($id)
     {
 
-        $role = Role::findById($id);
+        $role = static::findByIdRole($id,'admin') ;
         $permissions = Permission::latest()->get();
         $permission_groups = User::getPermissionGroups();
         // return $permission_groups;
         return view("backend.pages.role.edit",compact('permissions','permission_groups','role'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -109,7 +111,8 @@ class RolesController extends Controller
        //role permission process start
        $permissions = $request->input('permissions');
         // find
-        $role = Role::findById($request->id);
+
+        $role = static::findByIdRole($request->id,'admin');
 
         // role wise multiple parmission update
        if($role &&  $role->update(['name' => $request->name])){
@@ -128,10 +131,18 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::findById($id);
+        $role = static::findByIdRole($id,'admin');
         if($role->delete()){
            return redirect()->back()->with(['success' => 'Deleted Successfully']);
         }
         // return $id;
+    }
+
+
+    protected static function findByIdRole($id,$guard = null){
+        if(is_null($guard)){
+            return Role::findById($id,'admin');
+        }
+        return Role::findById($id,$guard);
     }
 }
