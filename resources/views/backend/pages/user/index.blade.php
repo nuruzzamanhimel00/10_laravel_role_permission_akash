@@ -50,7 +50,7 @@ Users | Users Permission Laravel
                                         <th>id</th>
                                         <th>name</th>
                                         <th>email</th>
-                                        {{-- <th width="30%">Permissions</th> --}}
+                                        <th width="30%">Role Nmae</th>
                                         <th>action</th>
 
                                     </tr>
@@ -61,14 +61,14 @@ Users | Users Permission Laravel
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            {{-- <td>
-                                                @forelse ($role->permissions as $permission)
+                                            <td>
+                                                @forelse ($user->getRoleNames() as $name)
                                                     <span class="badge badge-success" style="font-size: 14px;">
-                                                        {{ $permission->name }}
+                                                        {{ $name }}
                                                     </span>
                                                 @empty
                                                 @endforelse
-                                            </td> --}}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('users.edit',['user'=>$user->id]) }}" class="btn btn-success btn-sm">Edit</a>
                                                 <a href="" class="btn btn-danger btn-sm"

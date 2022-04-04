@@ -1,0 +1,47 @@
+############################## laravel role permission spatie Buildin Method ##################################
+### ( 1 ) Role & Permission ###
+$role = Role::create(['name' => 'writer']);
+$permission = Permission::create(['name' => 'edit articles']);
+
+A permission can be assigned to a role using 1 of these methods:
+$role->givePermissionTo($permission);
+$permission->assignRole($role);
+
+Multiple permissions can be synced to a role using 1 of these methods:
+$role->syncPermissions($permissions);
+$permission->syncRoles($roles);
+
+### FInd Role 
+ $role = Role::findById($request->id);
+
+=>A role have many permissions: ( RELATIONSHIP )
+ $roles = Role::with(['permissions'])->get();
+foreach($$roles as $$role)
+{ $role->permission }
+
+==> Role create and role have many permissions
+ $roleCreate = Role::create(['name'=>$request->name]);
+//here role have many permissions
+$roleCreate->syncPermissions($permissions);
+
+
+
+#### ( 2 ) Using permissio via rol
+
+==>  user Assign multiple role
+ $user->assignRole($request->roles);
+
+==> user role check 
+$user->hasRole($role->name)
+
+==> user role remove
+ foreach(Role::all() as $role){
+          $user->removeRole($role->name);
+ }
+
+==> user wise role name find and delete role
+
+  foreach($user->getRoleNames()as $role_name){
+            $user->removeRole($role_name);
+        }
+
