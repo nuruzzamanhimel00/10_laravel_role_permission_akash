@@ -12,13 +12,27 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public $user;
+
+    public function __construct()
+    {
+        $this->middleware(function($request,$next){
+            $this->user = $this->guard()->user();
+            return $next($request);
+        });
+    }
+
+    protected function guard(){
+        return Auth::guard('admin');
+    }
+
     public function index()
     {
+        if( is_null($this->user) || !$this->user->can('admin.view') ){
+            abort(403, 'Unauthonticated Access');
+        }
+
         $admins = Admin::get();
         return view('backend.pages.admin.index',compact('admins'));
     }
@@ -30,6 +44,7 @@ class AdminController extends Controller
      */
     public function create()
     {
+
 
         $roles = Role::all();
         return view("backend.pages.admin.create",compact('roles'));
@@ -43,6 +58,10 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        if( is_null($this->user) || !$this->user->can('admin.approve') ){
+            abort(403, 'Unauthonticated Access');
+        }
+
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:admins|string',
@@ -90,6 +109,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        if( is_null($this->user) || !$this->user->can('admin.edit') ){
+            abort(403, 'Unauthonticated Access');
+        }
         $admin = Admin::find($id);
         $roles = Role::all();
         return view("backend.pages.admin.edit",compact('roles','admin'));
@@ -104,6 +126,9 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if( is_null($this->user) || !$this->user->can('admin.update') ){
+            abort(403, 'Unauthonticated Access');
+        }
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:admins,email,'.$id,
@@ -143,6 +168,9 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
+        if( is_null($this->user) || !$this->user->can('admin.delete') ){
+            abort(403, 'Unauthonticated Access');
+        }
         $admin = Admin::find($id);
          //remove admin roles
         // foreach($admin->getRoleNames()as $role_name){
