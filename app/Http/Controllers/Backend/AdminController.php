@@ -107,10 +107,13 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:admins,email,'.$id,
+            'username' => 'required|string|unique:admins,username,'.$id,
             // 'password' => 'required|min:4',
         ]);
         $admin = Admin::find($id);
+
         $admin->name = $request->name;
+        $admin->username = $request->username;
         $admin->email = $request->email;
 
         if(isset($request->password)){
@@ -119,10 +122,12 @@ class AdminController extends Controller
         if($admin->save()){
             if(isset($request->roles)){
                 //remove admin roles
-                foreach(Role::all() as $role){
-                     $admin->removeRole($role->name);
-                }
-                // $admin->removeRole(Role::all());
+                // foreach(Role::all() as $role){
+                //      $admin->removeRole($role->name);
+                // }
+                    // OR
+                // All current roles will be removed from the user
+                $admin->roles()->detach();
                 // assign admin roles
                 $admin->assignRole($request->roles);
             }
@@ -140,9 +145,12 @@ class AdminController extends Controller
     {
         $admin = Admin::find($id);
          //remove admin roles
-        foreach($admin->getRoleNames()as $role_name){
-            $admin->removeRole($role_name);
-        }
+        // foreach($admin->getRoleNames()as $role_name){
+        //     $admin->removeRole($role_name);
+        // }
+        // or
+        $admin->roles()->detach();
+
         if($admin->delete()){
             return redirect()->back()->with(['success' => 'Admin Deleted Successfully']);
         }

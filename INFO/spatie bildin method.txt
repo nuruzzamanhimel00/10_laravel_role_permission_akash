@@ -50,3 +50,6 @@ $user->hasRole($role->name)
             $user->removeRole($role_name);
         }
 
+==> // All current roles will be removed from the user 
+ $admin = Admin::find($id);
+$admin->roles()->detach();

@@ -180,6 +180,8 @@ trait HasRoles
         return $this->assignRole($roles);
     }
 
+
+
     /**
      * Determine if the model has (one of) the given role(s).
      *
