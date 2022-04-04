@@ -21,12 +21,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'admin','namespace'=>'Backend'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Backend','middleware'=>['auth:admin']],function(){
     Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
     Route::resource('roles', 'RolesController');
     Route::resource('users', 'UserController');
     Route::resource('admins', 'AdminController');
-
+});
+Route::group(['prefix'=>'admin','namespace'=>'Backend'],function(){
     //login route
     Route::get('/login','Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('/login/submit','Auth\LoginController@login')->name('admin.login.submit');
@@ -38,3 +39,4 @@ Route::group(['prefix'=>'admin','namespace'=>'Backend'],function(){
 
 
 });
+

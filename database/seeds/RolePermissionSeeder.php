@@ -23,6 +23,12 @@ class RolePermissionSeeder extends Seeder
 
         $permissions = [
             [
+                'group_name' => 'dashboard',
+                'permissions' => [
+                    'dashboard.view',
+                ]
+            ],
+            [
                 'group_name' => 'blog',
                 'permissions' => [
                     'blog.view',
