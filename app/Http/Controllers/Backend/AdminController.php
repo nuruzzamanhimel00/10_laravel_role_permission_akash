@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -19,8 +19,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        return view('backend.pages.user.index',compact('users'));
+        $admins = Admin::get();
+        return view('backend.pages.admin.index',compact('admins'));
     }
 
     /**
@@ -32,7 +32,7 @@ class AdminController extends Controller
     {
 
         $roles = Role::all();
-        return view("backend.pages.user.create",compact('roles'));
+        return view("backend.pages.admin.create",compact('roles'));
     }
 
     /**
@@ -46,23 +46,23 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:users|string',
+            'email' => 'required|unique:admins|string',
             'password' => 'required|min:6',
             'roles' => 'required'
         ]);
 
-        $user = User::create([
+        $admin = Admin::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        if($user){
+        if($admin){
             // if have assign role
             if(count($request->roles) > 0){
-                $user->assignRole($request->roles);
+                $admin->assignRole($request->roles);
             }
 
-            return redirect()->back()->with(['success' => 'User Created Successfully']);
+            return redirect()->back()->with(['success' => 'Admin Created Successfully']);
         }
 
         // return $request->all();
@@ -89,9 +89,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $admin = Admin::find($id);
         $roles = Role::all();
-        return view("backend.pages.user.edit",compact('roles','user'));
+        return view("backend.pages.admin.edit",compact('roles','admin'));
     }
 
     /**
@@ -105,27 +105,27 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:users,email,'.$id,
+            'email' => 'required|string|unique:admins,email,'.$id,
             // 'password' => 'required|min:4',
         ]);
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
+        $admin = Admin::find($id);
+        $admin->name = $request->name;
+        $admin->email = $request->email;
 
         if(isset($request->password)){
-            $user->password  = Hash::make($request->password);
+            $admin->password  = Hash::make($request->password);
         }
-        if($user->save()){
+        if($admin->save()){
             if(isset($request->roles)){
-                //remove user roles
+                //remove admin roles
                 foreach(Role::all() as $role){
-                     $user->removeRole($role->name);
+                     $admin->removeRole($role->name);
                 }
-                // $user->removeRole(Role::all());
-                // assign user roles
-                $user->assignRole($request->roles);
+                // $admin->removeRole(Role::all());
+                // assign admin roles
+                $admin->assignRole($request->roles);
             }
-            return redirect()->back()->with(['success' => 'User Update Successfully']);
+            return redirect()->back()->with(['success' => 'Admin Update Successfully']);
         }
     }
 
@@ -137,13 +137,13 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-         //remove user roles
-        foreach($user->getRoleNames()as $role_name){
-            $user->removeRole($role_name);
+        $admin = Admin::find($id);
+         //remove admin roles
+        foreach($admin->getRoleNames()as $role_name){
+            $admin->removeRole($role_name);
         }
-        if($user->delete()){
-            return redirect()->back()->with(['success' => 'User Deleted Successfully']);
+        if($admin->delete()){
+            return redirect()->back()->with(['success' => 'Admin Deleted Successfully']);
         }
 
     }
