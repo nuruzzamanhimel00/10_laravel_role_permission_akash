@@ -1,3 +1,8 @@
+#################### COMAND #################
+1) composer du
+2) php artisan optimize:clear
+3)php artisan permission:cache-reset
+
 ############################## laravel role permission spatie Buildin Method ##################################
 ### ( 1 ) Role & Permission ###
 $role = Role::create(['name' => 'writer']);

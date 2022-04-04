@@ -20,11 +20,11 @@
                 </li>
 
                 <li class="{{ \Route::is('roles.index') || \Route::is('roles.create') || \Route::is('roles.edit') || \Route::is('roles.destroy') ? 'active' : '' }}">
-                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Users</span></a>
+                    <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layers-alt"></i> <span>Admins</span></a>
                     <ul class="collapse {{ \Route::is('roles.index') || \Route::is('roles.create') || \Route::is('roles.edit') ? 'in' : '' }} ">
 
-                        <li class="{{ \Route::is('users.index') ? 'active' : '' }}"><a href="{{ route('users.index') }}">Users List</a></li>
-                        <li class="{{ \Route::is('users.create') ? 'active' : '' }}"><a href="{{ route('users.create') }}">User Create</a></li>
+                        <li class="{{ \Route::is('admins.index') ? 'active' : '' }}"><a href="{{ route('admins.index') }}">Admins List</a></li>
+                        <li class="{{ \Route::is('admins.create') ? 'active' : '' }}"><a href="{{ route('admins.create') }}">Admin Create</a></li>
 
                     </ul>
                 </li>

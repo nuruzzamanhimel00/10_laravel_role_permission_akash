@@ -43,16 +43,17 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:admins|string',
+            'username' => 'required|unique:admins|string',
             'password' => 'required|min:6',
             'roles' => 'required'
         ]);
 
         $admin = Admin::create([
             'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
