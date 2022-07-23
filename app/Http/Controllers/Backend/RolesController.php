@@ -18,7 +18,7 @@ class RolesController extends Controller
     public function __construct()
     {
         $this->middleware(function($request,$next){
-            $this->user = $this->guard()->user();
+            $this->user = $this->guard('admin')->user();
             return $next($request);
         });
     }
